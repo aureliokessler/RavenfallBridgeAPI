@@ -4,7 +4,7 @@
 namespace RavenfallBridge\models;
 
 
-class AuthToken
+class Token
 {
     private $user_id;
     private $issued_utc;
@@ -17,7 +17,7 @@ class AuthToken
         $this->setUserId($data['userId']);
         $this->setIssuedUtc($data['issuedUtc']);
         $this->setExpiresUtc($data['expiresUtc']);
-        $this->setToken($data['token']);
+        $this->setToken($data['token'] ?? $data['authToken']);
         $this->setExpired($data['expired']);
     }
 
