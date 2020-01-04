@@ -9,6 +9,19 @@ use RavenfallBridge\models\HighScoreCollection;
 
 class HighScore extends Connect
 {
+    private $global_header;
+
+    /**
+     * @param string $base64_token
+     */
+    public function setBase64Token(string $base64_token): void
+    {
+        $this->global_header = [
+            "auth-token" => $base64_token
+        ];
+    }
+
+
     /**
      * get paged skill high score
      *
@@ -26,7 +39,7 @@ class HighScore extends Connect
         $url = BASE_API_URL . "/highscore/paged/" . $skill . $offset . "/" . $skip;
 
         try {
-            return new HighScoreCollection($this->get($url));
+            return new HighScoreCollection($this->get($url, $this->global_header));
         } catch (ErrorException $e) {
             Log::LogWrite(__METHOD__, $e->getMessage(), __FILE__, __LINE__);
             return $e->getMessage();
@@ -56,7 +69,7 @@ class HighScore extends Connect
         $url = BASE_API_URL . "/highscore/" . isset($skill) ?? "";
 
         try {
-            return new HighScoreCollection($this->get($url));
+            return new HighScoreCollection($this->get($url, $this->global_header));
         } catch (ErrorException $e) {
             Log::LogWrite(__METHOD__, $e->getMessage(), __FILE__, __LINE__);
             return $e->getMessage();

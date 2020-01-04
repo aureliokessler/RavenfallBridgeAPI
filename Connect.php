@@ -12,6 +12,9 @@ use ErrorException;
 
 class Connect
 {
+    protected $RawData = null;
+
+
     /**
      * Send $data to $url with http post Method
      *
@@ -104,6 +107,7 @@ class Connect
             throw new ErrorException("cURL Error: " . $error_message);
         }
 
+        $this->RawData = $content;
         return json_decode($content, true);
     }
 }

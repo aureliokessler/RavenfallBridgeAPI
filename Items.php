@@ -9,13 +9,24 @@ use RavenfallBridge\models\ItemCollection;
 
 class Items extends Connect
 {
+    private $global_header;
+
+    /**
+     * @param string $base64_token
+     */
+    public function setBase64Token(string $base64_token): void
+    {
+        $this->global_header = [
+            "auth-token" => $base64_token
+        ];
+    }
+
     public function getAll()
     {
         $url = BASE_API_URL . "/items";
 
         try {
-            new ItemCollection($this->get($url));
-            return true;
+            return new ItemCollection($this->get($url, $this->global_header));
         } catch (ErrorException $e) {
             Log::LogWrite(__METHOD__, $e->getMessage(), __FILE__, __LINE__);
             return $e->getMessage();
@@ -31,7 +42,7 @@ class Items extends Connect
         ];
 
         try {
-            return $this->post($url, $item->toArray(), $header) == [true];
+            return $this->post($url, $item->toArray(), array_merge($this->global_header, $header)) == [true];
         } catch (ErrorException $e) {
             Log::LogWrite(__METHOD__, $e->getMessage(), __FILE__, __LINE__);
             return $e->getMessage();
@@ -47,7 +58,7 @@ class Items extends Connect
         ];
 
         try {
-            return $this->delete($url, [], $header) == [true];
+            return $this->delete($url, [], array_merge($this->global_header, $header)) == [true];
         } catch (ErrorException $e) {
             Log::LogWrite(__METHOD__, $e->getMessage(), __FILE__, __LINE__);
             return $e->getMessage();
@@ -63,7 +74,7 @@ class Items extends Connect
         ];
 
         try {
-            return $this->put($url, $item->toArray(), $header) == [true];
+            return $this->put($url, $item->toArray(), array_merge($this->global_header, $header)) == [true];
         } catch (ErrorException $e) {
             Log::LogWrite(__METHOD__, $e->getMessage(), __FILE__, __LINE__);
             return $e->getMessage();

@@ -11,23 +11,63 @@ namespace RavenfallBridge;
 
 class Ravenfall
 {
-    public function Authenticate(string $username, string $password)
+    private $base64_token;
+
+    private $username;
+    private $password;
+
+    /**
+     * @param string $username
+     */
+    public function setUsername(string $username): void
     {
-        return new Authenticate($username, $password);
+        $this->username = $username;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
+    }
+
+
+
+    public function Authenticate()
+    {
+        $auth = new Authenticate();
+
+        $this->base64_token = $auth->Login($this->username, $this->password);
+
+        return $auth;
     }
 
     public function Game()
     {
-        return new Game();
+        $game = new Game();
+        $game->setBase64Token($this->base64_token);
+        return $game;
     }
 
     public function HighScore()
     {
-        return new HighScore();
+        $hs = new HighScore();
+        $hs->setBase64Token($this->base64_token);
+        return $hs;
     }
 
     public function Items()
     {
-        return new Items();
+        $items = new Items();
+        $items->setBase64Token($this->base64_token);
+        return $items;
+    }
+
+    public function Marketplace()
+    {
+        $mp = new Marketplace();
+        $mp->setBase64Token($this->base64_token);
+        return new Marketplace();
     }
 }

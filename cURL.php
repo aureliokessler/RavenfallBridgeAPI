@@ -35,7 +35,7 @@ class cURL
      */
     public function setCurlOptions(array $curl_options): void
     {
-        $this->curl_options = $curl_options;
+        $this->curl_options = array_merge($this->curl_options, $curl_options);
     }
 
     /**
@@ -51,7 +51,7 @@ class cURL
      */
     public function setCurlUrl(string $curl_url): void
     {
-        $this->curl_options = array_merge($this->curl_options, [
+        $this->setCurlOptions([
             CURLOPT_URL => $curl_url
         ]);
 
@@ -71,10 +71,10 @@ class cURL
      */
     public function setCurlHeader(array $curl_header): void
     {
-        $this->curl_options = array_merge($this->curl_options, [
+        $this->setCurlOptions([
             CURLOPT_HTTPHEADER => $curl_header,
         ]);
-        $this->curl_header = $curl_header;
+        $this->curl_header = array_merge($this->curl_header, $curl_header);
     }
 
     public function exec()

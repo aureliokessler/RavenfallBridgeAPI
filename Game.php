@@ -11,6 +11,18 @@ use RavenfallBridge\models\Token;
 
 class Game extends Connect
 {
+    private $global_header;
+
+    /**
+     * @param string $base64_token
+     */
+    public function setBase64Token(string $base64_token): void
+    {
+        $this->global_header = [
+            "auth-token" => $base64_token
+        ];
+    }
+
     /**
      * retrieves the currently running game session
      *
@@ -86,7 +98,7 @@ class Game extends Connect
         ];
 
         try {
-            return $this->delete($url, $data, $header) == [true];
+            return $this->delete($url, $data, array_merge($this->global_header, $header)) == [true];
         } catch (ErrorException $e) {
             Log::LogWrite(__METHOD__, $e->getMessage(), __FILE__, __LINE__);
             return $e->getMessage();
@@ -113,7 +125,7 @@ class Game extends Connect
         $data = [];
 
         try {
-            return $this->delete($url, $data, $header) == [];
+            return $this->delete($url, $data, array_merge($this->global_header, $header)) == [];
         } catch (ErrorException $e) {
             Log::LogWrite(__METHOD__, $e->getMessage(), __FILE__, __LINE__);
             return $e->getMessage();
@@ -134,7 +146,7 @@ class Game extends Connect
         $url = BASE_API_URL . "/game/events/" . $revision;
 
         try {
-            new EventCollection($this->get($url));
+            new EventCollection($this->get($url, $this->global_header));
             return true;
         } catch (ErrorException $e) {
             Log::LogWrite(__METHOD__, $e->getMessage(), __FILE__, __LINE__);

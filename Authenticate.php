@@ -9,6 +9,16 @@ use RavenfallBridge\models\Token;
 
 class Authenticate extends Connect
 {
+    private $token;
+
+    /**
+     * @return mixed
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
     /**
      * Authenticate to the ravenfall API
      *
@@ -21,8 +31,9 @@ class Authenticate extends Connect
      * @return bool|string <p>
      *  true: token data has been stored
      *  string: error message from curl
+     * </p>
      */
-    public function __construct(string $username, string $password)
+    public function Login(string $username, string $password)
     {
         $url = BASE_API_URL . "/auth";
 
@@ -37,9 +48,11 @@ class Authenticate extends Connect
 
         try {
             $response = $this->post($url, $data, $header);
-            new Token($response);
-            return true;
+
             // todo: store the $response (auth token infos) in a file or database.
+            $this->token = new Token($response);
+
+            return base64_encode($this->RawData);
         } catch (ErrorException $e) {
             Log::LogWrite(__METHOD__, $e->getMessage(), __FILE__, __LINE__);
             return $e->getMessage();
