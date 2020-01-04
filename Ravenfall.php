@@ -37,9 +37,7 @@ class Ravenfall
     public function Authenticate()
     {
         $auth = new Authenticate();
-
         $this->base64_token = $auth->Login($this->username, $this->password);
-
         return $auth;
     }
 
@@ -68,6 +66,6 @@ class Ravenfall
     {
         $mp = new Marketplace();
         $mp->setBase64Token($this->base64_token);
-        return new Marketplace();
+        return $mp;
     }
 }
