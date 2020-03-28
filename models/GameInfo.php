@@ -16,9 +16,9 @@ class GameInfo
     {
         $this->setUserId($data['userId']);
         $this->setUptime($data['uptime']);
-        $this->setPeakPlayerCount($data['peak_player_count']);
-        $this->setPlayerCount($data['player_count']);
-        $this->setEventRevision($data['event_revision']);
+        $this->setPeakPlayerCount($data['peakPlayerCount']);
+        $this->setPlayerCount($data['playerCount']);
+        $this->setEventRevision($data['eventRevision']);
     }
 
     /**
