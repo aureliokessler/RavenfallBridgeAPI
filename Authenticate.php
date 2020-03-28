@@ -29,8 +29,8 @@ class Authenticate extends Connect
      *  your singup password on the https://ravenfall.stream website
      * </p>
      * @return bool|string <p>
-     *  true: token data has been stored
-     *  string: error message from curl
+     *  <b>true</b>: token data has been stored <br>
+     *  <b>string</b>: error message from curl
      * </p>
      */
     public function Login(string $username, string $password)
@@ -63,9 +63,9 @@ class Authenticate extends Connect
      * checks whether the authentication is still valid
      *
      * @return bool|string <p>
-     *  true: is authenticated
-     *  false: no longer authenticated
-     *  string: error message from curl
+     *  <b>true</b>: is authenticated <br>
+     *  <b>false</b>: no longer authenticated <br>
+     *  <b>string</b>: error message from curl
      * </p>
      */
     public function State()

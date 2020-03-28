@@ -5,22 +5,21 @@ namespace RavenfallBridge;
 
 
 use ErrorException;
+use RavenfallBridge\helpers\HBase64Token;
 use RavenfallBridge\models\ItemCollection;
 
 class Items extends Connect
 {
-    private $global_header;
+    use HBase64Token;
 
     /**
-     * @param string $base64_token
+     * this will return the list of all available items in Ravenfall
+     *
+     * @return ItemCollection|string <p>
+     *  <b>ItemCollection</b>:
+     *  <b>string</b>:
+     * </p>
      */
-    public function setBase64Token(string $base64_token): void
-    {
-        $this->global_header = [
-            "auth-token" => $base64_token
-        ];
-    }
-
     public function getAll()
     {
         $url = BASE_API_URL . "/items";
@@ -33,6 +32,12 @@ class Items extends Connect
         }
     }
 
+    /**
+     * add a new item to the game
+     *
+     * @param ItemCollection $item
+     * @return bool|string
+     */
     public function Add(ItemCollection $item)
     {
         $url = BASE_API_URL . "/items";
@@ -49,6 +54,12 @@ class Items extends Connect
         }
     }
 
+    /**
+     * this will delete an item from the game
+     *
+     * @param string $itemId
+     * @return bool|string
+     */
     public function del(string $itemId)
     {
         $url = BASE_API_URL . "/items/" . $itemId;

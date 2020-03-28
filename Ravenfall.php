@@ -17,7 +17,9 @@ class Ravenfall
     private $password;
 
     /**
-     * @param string $username
+     * @param string $username <p>
+     *  your singup username on the https://ravenfall.stream website
+     * </p>
      */
     public function setUsername(string $username): void
     {
@@ -25,7 +27,9 @@ class Ravenfall
     }
 
     /**
-     * @param string $password
+     * @param string $password <p>
+     *  your singup password on the https://ravenfall.stream website
+     * </p>
      */
     public function setPassword(string $password): void
     {
@@ -36,7 +40,15 @@ class Ravenfall
     public function Authenticate()
     {
         $auth = new Authenticate();
-        $this->base64_token = $auth->Login($this->username, $this->password);
+        if (isset($this->username, $this->password)) {
+            if (!$auth->State() && empty($this->base64_token)) {
+                $this->base64_token = $auth->Login($this->username, $this->password);
+            } else {
+                Log::LogWrite(__METHOD__, "Active login!", __FILE__, __LINE__);
+            }
+        } else {
+            Log::LogWrite(__METHOD__, "Username and/or Password not set.", __FILE__, __LINE__);
+        }
         return $auth;
     }
 

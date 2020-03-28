@@ -5,38 +5,28 @@ namespace RavenfallBridge;
 
 
 use ErrorException;
+use RavenfallBridge\helpers\HBase64Token;
 use RavenfallBridge\models\EventCollection;
 use RavenfallBridge\models\GameInfo;
-use RavenfallBridge\models\Token;
 
 class Game extends Connect
 {
-    private $global_header;
+    use HBase64Token;
 
     /**
-     * @param string $base64_token
-     */
-    public function setBase64Token(string $base64_token): void
-    {
-        $this->global_header = [
-            "auth-token" => $base64_token
-        ];
-    }
-
-    /**
-     * retrieves the currently running game session
+     * retrieves the currently running game session information
      *
-     * @return bool|string
-     *  true: Game session data has been stored
-     *  string: error message from curl
+     * @return GameInfo|string <p>
+     *  <b>GameInfo</b>: the information of the current game <br>
+     *  <b>string</b>: error message from curl
+     * <7p>
      */
     public function currentSession()
     {
         $url = BASE_API_URL . "/game";
 
         try {
-            new GameInfo($this->get($url));
-            return true;
+            return new GameInfo($this->get($url));
         } catch (ErrorException $e) {
             Log::LogWrite(__METHOD__, $e->getMessage(), __FILE__, __LINE__);
             return $e->getMessage();
@@ -46,11 +36,12 @@ class Game extends Connect
     /**
      * start a game session
      *
-     * @param string $clientVersion
-     * @param string $accessKey
-     * @return bool|string
-     *  true: token for game session has been stored
-     *  string: error message from curl
+     * @param string $clientVersion ravenfall client version
+     * @param string $accessKey client secret
+     * @return bool|string <p>
+     *  <b>true</b>: token for game session has been stored <br>
+     *  <b>string</b>: error message from curl
+     * </p>
      */
     public function startSession(string $clientVersion, string $accessKey)
     {
@@ -65,9 +56,10 @@ class Game extends Connect
         ];
 
         try {
-            new Token($this->post($url, $data, $header));
+            $this->post($url, $data, $header);
+            // new Token($this->post($url, $data, $header));
             // todo: the game sessions token has yet to be saved
-            return true;
+            return base64_encode($this->RawData);
         } catch (ErrorException $e) {
             Log::LogWrite(__METHOD__, $e->getMessage(), __FILE__, __LINE__);
             return $e->getMessage();
@@ -77,13 +69,12 @@ class Game extends Connect
     /**
      * raiding another streamer
      *
-     * @param string $username <p>
-     *  Twitch username
+     * @param string $username Twitch username/display name
+     * @return bool|string <p>
+     *  <b>true</b>: streamer could be raided <br>
+     *  <b>false</b>: streamer could not be raided <br>
+     *  <b>string</b>: error message from curl
      * </p>
-     * @return bool|string
-     *  true: streamer could be raided
-     *  false: streamer could not be raided
-     *  string: error message from curl
      */
     public function raidStreamer(string $username)
     {
@@ -109,9 +100,9 @@ class Game extends Connect
      * session is deleted
      *
      * @return bool|string <p>
-     *  true: session has been deleted
-     *  false: session could not be deleted
-     *  string: error message from curl
+     *  <b>true</b>: session has been deleted <br>
+     *  <b>false</b>: session could not be deleted <br>
+     *  <b>string</b>: error message from curl
      * </p>
      */
     public function endSession()
@@ -125,7 +116,7 @@ class Game extends Connect
         $data = [];
 
         try {
-            return $this->delete($url, $data, array_merge($this->global_header, $header)) == [];
+            return $this->delete($url, $data, array_merge($this->global_header, $header)) == [[]];
         } catch (ErrorException $e) {
             Log::LogWrite(__METHOD__, $e->getMessage(), __FILE__, __LINE__);
             return $e->getMessage();
@@ -136,9 +127,9 @@ class Game extends Connect
      * poll the latest game events after a specific revision
      *
      * @param int $revision
-     * @return string <p>
-     *  true: the latest game events have been successfully received
-     *  string: error message from curl
+     * @return EventCollection|string <p>
+     *  <b>EventCollection</b>: A list of ravenfall events <br>
+     *  <b>string</b>: error message from curl
      * </p>
      */
     public function pollEvent(int $revision)
@@ -146,12 +137,10 @@ class Game extends Connect
         $url = BASE_API_URL . "/game/events/" . $revision;
 
         try {
-            new EventCollection($this->get($url, $this->global_header));
-            return true;
+            return new EventCollection($this->get($url, $this->global_header));
         } catch (ErrorException $e) {
             Log::LogWrite(__METHOD__, $e->getMessage(), __FILE__, __LINE__);
             return $e->getMessage();
         }
     }
-
 }

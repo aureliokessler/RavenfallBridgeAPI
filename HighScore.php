@@ -5,22 +5,12 @@ namespace RavenfallBridge;
 
 
 use ErrorException;
+use RavenfallBridge\helpers\HBase64Token;
 use RavenfallBridge\models\HighScoreCollection;
 
 class HighScore extends Connect
 {
-    private $global_header;
-
-    /**
-     * @param string $base64_token
-     */
-    public function setBase64Token(string $base64_token): void
-    {
-        $this->global_header = [
-            "auth-token" => $base64_token
-        ];
-    }
-
+    use HBase64Token;
 
     /**
      * get paged skill high score
@@ -28,9 +18,10 @@ class HighScore extends Connect
      * @param string $skill ?
      * @param int $offset ?
      * @param int $skip ?
-     * @return HighScoreCollection|string
-     *  HighScoreCollection is a HighScore array list
-     *  string: error message from curl
+     * @return HighScoreCollection|string <p>
+     *  <b>HighScoreCollection</b>: a list of HighScore's data <br>
+     *  <b>string</b>: error message from curl
+     * </p>
      */
     public function getPagedSkillHighScore(string $skill, int $offset, int $skip)
     {
@@ -50,8 +41,8 @@ class HighScore extends Connect
      * @param int $offset ?
      * @param int $skip ?
      * @return HighScoreCollection|string
-     *  HighScoreCollection is a HighScore array list
-     *  string: error message from curl
+     *  <b>HighScoreCollection</b>: a list of HighScore data <br>
+     *  <b>string</b>: error message from curl
      */
     public function getPagedHighScore(int $offset, int $skip)
     {
@@ -61,8 +52,8 @@ class HighScore extends Connect
     /**
      * @param string $skill ?
      * @return HighScoreCollection|string
-     *  HighScoreCollection is a HighScore array list
-     *  string: error message from curl
+     *  <b>HighScoreCollection</b>: a list of HighScore data <br>
+     *  <b>string</b>: error message from curl
      */
     public function getSkillHighScore(string $skill)
     {
@@ -78,8 +69,8 @@ class HighScore extends Connect
 
     /**
      * @return HighScoreCollection|string
-     *  HighScoreCollection is a HighScore array list
-     *  string: error message from curl
+     *  <b>HighScoreCollection</b>: a list of HighScore data <br>
+     *  <b>string</b>: error message from curl
      */
     public function getHighScore()
     {
