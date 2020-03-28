@@ -33,7 +33,6 @@ class Ravenfall
     }
 
 
-
     public function Authenticate()
     {
         $auth = new Authenticate();
@@ -67,5 +66,19 @@ class Ravenfall
         $mp = new Marketplace();
         $mp->setBase64Token($this->base64_token);
         return $mp;
+    }
+
+    public function Players()
+    {
+        $p = new Players();
+        $p->setBase64Token($this->base64_token);
+        return $p;
+    }
+
+    public function Twitch()
+    {
+        $t = new Twitch();
+        $t->setBase64Token($this->base64_token);
+        return $t;
     }
 }
