@@ -8,6 +8,11 @@ class GUID
 {
     private static $guid;
 
+    public function __construct(string $guid)
+    {
+        self::$guid = $guid;
+    }
+
     /**
      * @param string $guid
      * @return bool
