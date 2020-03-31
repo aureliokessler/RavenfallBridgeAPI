@@ -1,0 +1,27 @@
+{
+  "name": "aureliokessler/ravenfall_bridge_api",
+  "description": "Is a PHP bridge for the ravenfall API",
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=7.2",
+    "ext-curl": "*",
+    "ext-json": "*"
+  },
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Aurelio Kessler",
+      "email": "ak@aureliokessler.ch"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "RavenfallBridge\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "RavenfallBridge\\": "src/"
+    }
+  }
+}

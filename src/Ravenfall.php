@@ -41,7 +41,7 @@ class Ravenfall
     {
         $auth = new Authenticate();
         if (isset($this->username, $this->password)) {
-            if (!$auth->State() && empty($this->base64_token)) {
+            if (empty($this->base64_token)) {
                 $this->base64_token = $auth->Login($this->username, $this->password);
             } else {
                 Log::LogWrite(__METHOD__, "Active login!", __FILE__, __LINE__);

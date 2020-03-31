@@ -16,10 +16,10 @@ class cURL
 
     public function __construct(string $url = "", array $options = [], array $header = [])
     {
-        $this->curl_handler = curl_init();
+        $this->curl_handler = curl_init($url);
         $this->curl_url = $url;
         $this->curl_options = $options;
-        $this->curl_header = $header;
+        $this->setCurlHeader($header);
     }
 
     /**

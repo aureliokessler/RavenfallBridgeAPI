@@ -1,8 +1,9 @@
 <?php
 
-
 namespace RavenfallBridge;
 
+
+require_once "constants.php";
 
 use ErrorException;
 use RavenfallBridge\models\Token;

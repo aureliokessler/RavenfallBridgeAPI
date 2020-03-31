@@ -108,6 +108,8 @@ class Connect
         }
 
         $this->RawData = $content;
+        $json = json_decode($content, true);
+        var_dump($json);
         return json_decode($content, true);
     }
 }
