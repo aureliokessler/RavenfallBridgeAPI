@@ -16,9 +16,9 @@ class cURL
 
     public function __construct(string $url = "", array $options = [], array $header = [])
     {
-        $this->curl_handler = curl_init($url);
-        $this->curl_url = $url;
-        $this->curl_options = $options;
+        $this->curl_handler = curl_init();
+        $this->setCurlUrl($url);
+        $this->setCurlOptions($options);
         $this->setCurlHeader($header);
     }
 
@@ -35,7 +35,7 @@ class cURL
      */
     public function setCurlOptions(array $curl_options): void
     {
-        $this->curl_options = array_merge($this->curl_options, $curl_options);
+        $this->curl_options += $curl_options;
     }
 
     /**
@@ -74,7 +74,7 @@ class cURL
         $this->setCurlOptions([
             CURLOPT_HTTPHEADER => $curl_header,
         ]);
-        $this->curl_header = array_merge($this->curl_header, $curl_header);
+        $this->curl_header += $curl_header;
     }
 
     public function exec()

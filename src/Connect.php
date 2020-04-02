@@ -97,7 +97,7 @@ class Connect
      */
     private function send(string $url, array $curl_opt, array $header = [])
     {
-        $curl = new cURL($url, array_merge([CURLOPT_RETURNTRANSFER => true], $curl_opt), $header);
+        $curl = new cURL($url, [CURLOPT_RETURNTRANSFER => true] + $curl_opt, $header);
 
         $content = $curl->exec();
 
