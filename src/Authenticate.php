@@ -39,7 +39,7 @@ class Authenticate extends Connect
         $url = BASE_API_URL . "/auth";
 
         $header = [
-            "Content-Type" => "application/json"
+            "Content-Type: application/json"
         ];
 
         $data = [
@@ -74,6 +74,8 @@ class Authenticate extends Connect
         $url = BASE_API_URL . "/auth";
 
         try {
+            $tmp = $this->get($url);
+            var_dump($tmp);
             return $this->get($url) == [""];
         } catch (ErrorException $e) {
             Log::LogWrite(__METHOD__, $e->getMessage(), __FILE__, __LINE__);

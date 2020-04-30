@@ -43,7 +43,7 @@ class Items extends Connect
         $url = BASE_API_URL . "/items";
 
         $header = [
-            "Content-Type" => "application/json"
+            "Content-Type: application/json"
         ];
 
         try {
@@ -65,7 +65,7 @@ class Items extends Connect
         $url = BASE_API_URL . "/items/" . $itemId;
 
         $header = [
-            "Content-Type" => "application/json"
+            "Content-Type: application/json"
         ];
 
         try {
@@ -81,7 +81,7 @@ class Items extends Connect
         $url = BASE_API_URL . "/items";
 
         $header = [
-            "Content-Type" => "application/json"
+            "Content-Type: application/json"
         ];
 
         try {

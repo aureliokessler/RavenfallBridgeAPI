@@ -29,7 +29,7 @@ class Players extends Connect
         $url = BASE_API_URL . "/players/" . $userId;
 
         $header = [
-            "Content-Type" => "application/json"
+            "Content-Type: application/json"
         ];
 
         $data = [
@@ -85,7 +85,7 @@ class Players extends Connect
         $url = BASE_API_URL . "/players/appearance";
 
         $header = [
-            "Content-Type" => "application/json"
+            "Content-Type: application/json"
         ];
 
         $data = [
@@ -105,7 +105,7 @@ class Players extends Connect
         $url = BASE_API_URL . "/players/" . $userId . "/experience";
 
         $header = [
-            "Content-Type" => "application/json"
+            "Content-Type: application/json"
         ];
 
         $data = [
@@ -125,7 +125,7 @@ class Players extends Connect
         $url = BASE_API_URL . "/players/" . $userId . "/statistics";
 
         $header = [
-            "Content-Type" => "application/json"
+            "Content-Type: application/json"
         ];
 
         $data = [
@@ -145,7 +145,7 @@ class Players extends Connect
         $url = BASE_API_URL . "/players/" . $userId . "/resources";
 
         $header = [
-            "Content-Type" => "application/json"
+            "Content-Type: application/json"
         ];
 
         $data = [

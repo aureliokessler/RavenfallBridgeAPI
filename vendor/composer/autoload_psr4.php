@@ -6,5 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'RavenfallBridge\\' => array($baseDir . '/src', $baseDir . '/src'),
+    'Symfony\\Polyfill\\Ctype\\' => array($vendorDir . '/symfony/polyfill-ctype'),
+    'RavenfallBridge\\' => array($baseDir . '/src'),
+    'PhpOption\\' => array($vendorDir . '/phpoption/phpoption/src/PhpOption'),
+    'Dotenv\\' => array($vendorDir . '/vlucas/phpdotenv/src'),
 );

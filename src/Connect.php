@@ -31,6 +31,10 @@ class Connect
             throw new ErrorException("No Data in \$data array.");
         }
 
+        foreach ($header as $item) {
+            if(preg_match('/application\/json/', $item) === 1) $data = json_encode($data);
+        }
+
         return $this->send($url, [
             CURLOPT_POST => true,
             CURLOPT_POSTFIELDS => $data
@@ -47,9 +51,12 @@ class Connect
      */
     protected function get(string $url, array $header = []): array
     {
-        return $this->send($url, [
+        $tmp = $this->send($url, [
+            CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_ENCODING => ""
         ], $header);
+
+        return [$tmp];
     }
 
     /**
@@ -108,8 +115,6 @@ class Connect
         }
 
         $this->RawData = $content;
-        $json = json_decode($content, true);
-        var_dump($json);
         return json_decode($content, true);
     }
 }

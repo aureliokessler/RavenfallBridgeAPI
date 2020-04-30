@@ -48,7 +48,7 @@ class Game extends Connect
         $url = BASE_API_URL . "/game" . $clientVersion . "/" . $accessKey;
 
         $header = [
-            "Content-Type" => "application/json"
+            "Content-Type: application/json"
         ];
 
         $data = [
@@ -81,7 +81,7 @@ class Game extends Connect
         $url = BASE_API_URL . "/game/raid" . $username;
 
         $header = [
-            "Content-Type" => "application/json"
+            "Content-Type: application/json"
         ];
 
         $data = [
@@ -110,7 +110,7 @@ class Game extends Connect
         $url = BASE_API_URL . "/game";
 
         $header = [
-            "Content-Type" => "application/json"
+            "Content-Type: application/json"
         ];
 
         $data = [];

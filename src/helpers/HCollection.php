@@ -17,6 +17,6 @@ class HCollection
 
     public function Add(array $item)
     {
-        array_merge($this->collection, $item);
+        $this->collection += $item;
     }
 }

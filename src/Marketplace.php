@@ -30,7 +30,7 @@ class Marketplace extends Connect
         $url = BASE_API_URL . "/marketplace/" . $offset . "/" . $size;
 
         try {
-            return new MarketItemCollection($this->get($url, $this->global_header));
+            return new MarketItemCollection( [ $this->get( $url, $this->global_header ) ] );
         } catch (ErrorException $e) {
             Log::LogWrite(__METHOD__, $e->getMessage(), __FILE__, __LINE__);
             return $e->getMessage();

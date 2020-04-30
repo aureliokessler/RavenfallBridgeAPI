@@ -2,11 +2,6 @@
   "name": "aureliokessler/ravenfall_bridge_api",
   "description": "Is a PHP bridge for the ravenfall API",
   "minimum-stability": "dev",
-  "require": {
-    "php": ">=7.2",
-    "ext-curl": "*",
-    "ext-json": "*"
-  },
   "license": "proprietary",
   "authors": [
     {
@@ -19,9 +14,12 @@
       "RavenfallBridge\\": "src/"
     }
   },
-  "autoload-dev": {
-    "psr-4": {
-      "RavenfallBridge\\": "src/"
-    }
+  "require": {
+    "php": ">=7.2",
+    "ext-curl": "*",
+    "ext-json": "*"
+  },
+  "require-dev": {
+    "vlucas/phpdotenv": "^4.1@dev"
   }
 }

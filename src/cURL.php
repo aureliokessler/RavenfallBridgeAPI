@@ -79,6 +79,7 @@ class cURL
 
     public function exec()
     {
+        Log::LogWrite("cURL Debug", $this->curl_options, __FILE__, __LINE__);
         curl_setopt_array($this->curl_handler, $this->curl_options);
         return curl_exec($this->curl_handler);
     }
